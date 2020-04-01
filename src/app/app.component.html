@@ -1,7 +1,9 @@
-<div>
-  <button (click)="shuffle()">Shuffle</button>
-  <button (click)="sort(1)">Sort Dec</button>
-  <button (click)="sort(2)" >Sort Inc</button>
-
+<div class="main">
+  <div class="buttons">
+  <button (click)="shuffle()" class="raise">Shuffle</button>
+  <button (click)="bubblesort(1)" class="raise">Sort Dec</button>
+  <button (click)="bubblesort(2)" class="raise">Sort Inc</button>
+  <button (click)="qsort()" class="raise">Quick sort</button>
+</div>
   <canvas id="ctx" height="100" width="400"></canvas>
 </div>
