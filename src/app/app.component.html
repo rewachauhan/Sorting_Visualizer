@@ -1,9 +1,62 @@
+
 <div class="main">
   <div class="buttons">
-  <button (click)="shuffle()" class="raise">Shuffle</button>
-  <button (click)="bubblesort(1)" class="raise">Sort Dec</button>
-  <button (click)="bubblesort(2)" class="raise">Sort Inc</button>
+    <a (click)="shuffle()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Shuffle Array
+    </a>
+    <a (click)="bubblesort(this.status)">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Bubble Sort
+    </a>
+    <a (click)="qsort()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Quick Sort
+    </a>
+    <a (click)="insertsort()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Insertion Sort
+    </a>
+    <a (click)="selectsort()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Selection Sort
+    </a>
+    <a (click)="oddevensort()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Odd Even Sort
+    </a>
+  <!-- <button (click)="shuffle()" class="raise">Shuffle</button>
+  <button (click)="bubblesort(this.status)" class="raise">Bubble Sort Dec</button>
   <button (click)="qsort()" class="raise">Quick sort</button>
+  <button (click)="insertsort()" class="raise">Insertion sort</button>
+  <button (click)="selectsort()" class="raise">Selection sort</button> -->
 </div>
   <canvas id="ctx" height="100" width="400"></canvas>
+  <br>
+  <div>
+  <div class="toggle-body" [ngClass]="status ? 'toggle-body--on' : 'toggle-body'" >
+     
+    <div class="toggle-btn" [ngClass]="status ? 'toggle-btn--on toggle-btn--scale' : 'toggle-btn'" (click)="toggle()"></div>
+
+  </div>
+  <p>Press <font color={{this.col}}>{{this.col}}</font> for {{this.ord}} Order</p>
+</div>
 </div>

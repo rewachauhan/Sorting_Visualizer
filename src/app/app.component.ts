@@ -11,6 +11,20 @@ export class AppComponent implements OnInit {
   chart;
   data=[]
   color=[]
+  col="blue"
+  ord="decreasing"
+  status = false  //increasing order
+  toggle(){
+    this.status = !this.status
+    if(this.status){
+      this.col="pink"
+      this.ord="increasing"
+    }
+    else{
+      this.col="blue"
+      this.ord="decreasing"
+    }
+  }
   ngOnInit(){
 
     for(var i=0;i<40;i++){
@@ -22,7 +36,7 @@ export class AppComponent implements OnInit {
       data: {
           labels:this.data,
           datasets: [{
-
+              label:"changing",
               data: this.data,
               backgroundColor: this.color,
               borderColor:this.color,
@@ -36,9 +50,20 @@ export class AppComponent implements OnInit {
                       beginAtZero: true
                   }
               }]
-          }
+          },
+          legend: {
+            display: false
+        },
+        tooltips: {
+            callbacks: {
+               label: function(tooltipItem) {
+                      return tooltipItem.yLabel;
+               }
+            }
+        }
       }
   });
+  Chart.defaults.global.legend.display = false;
   }
   shuffle(){
   this.data=[]
@@ -53,14 +78,14 @@ export class AppComponent implements OnInit {
 sleep(s:number){
   return new Promise(resolve=>setTimeout(resolve,s)) //s is the count down value for timeout; timeout returns 1,2,3,4,5... to promise which is returned to await. as soon as the value of promise becomes 20 ,await contiues
 }
-async bubblesort(n:number){
+async bubblesort(n){
   for (let i = 0; i < this.data.length; i++) {
 
     for (let j = 0; j < this.data.length-i-1; j++) {
       this.chart.data.datasets[0].backgroundColor[j]= "#8FC1A9"
       this.chart.data.datasets[0].backgroundColor[j+1]= "#8FC1A9"
       this.chart.update()
-      if(this.data[j]<this.data[j+1] && n==1){
+      if(this.data[j]<this.data[j+1] && n==true){
         var temp=this.data[j]
         this.data[j]=this.data[j+1]
         this.data[j+1]=temp
@@ -69,7 +94,7 @@ async bubblesort(n:number){
         // console.log(this.chart.data)
         this.chart.update()
        }
-       if(this.data[j]>this.data[j+1] && n==2){
+       if(this.data[j]>this.data[j+1] && n==false){
         var temp=this.data[j]
         this.data[j]=this.data[j+1]
         this.data[j+1]=temp
@@ -102,7 +127,17 @@ async partition(arr,lowindex,highindex){
   for (let j = lowindex; j < highindex; j++) {
     this.chart.data.datasets[0].backgroundColor[j]="#9DBAD5"
     this.chart.update()
-    if(arr[j]<pivot){
+    if(arr[j]<pivot && this.status==false){
+      i++
+      var temp=arr[i]
+      arr[i]=arr[j]
+      arr[j]=temp
+      this.chart.data.datasets[0].data=arr
+      this.chart.data.labels=arr
+      this.chart.update()
+      await this.sleep(100)
+    }
+    if(arr[j]>pivot && this.status==true){
       i++
       var temp=arr[i]
       arr[i]=arr[j]
@@ -133,5 +168,86 @@ async partition(arr,lowindex,highindex){
 }
 qsort(){      //boiler function-> intermediate fn to call the main recursive fn; needed because the data being passed in the quicksort fn is being converted to local data and this this will edit the main data
   this.quicksort(this.data,0,39) //since 
+}
+async selectsort(){
+  for (let i = 0; i < this.data.length; i++) {
+    var min=i
+    for (let j = i+1; j < this.data.length ; j++) {
+     if(this.data[min]>this.data[j] && this.status==false){
+       min=j
+     }
+     if(this.data[min]<this.data[j] && this.status==true){
+      min=j
+    }
+    }
+    var temp=this.data[i]
+    this.data[i]=this.data[min]
+    this.data[min]=temp
+    this.chart.data.datasets[0].data=this.data
+    this.chart.data.labels=this.data
+    this.chart.update()
+    await this.sleep(50)
+  }
+}
+async insertsort(){
+  for (let i = 1; i < this.data.length; i++){
+      var key=this.data[i]
+      var j=i-1
+      while(j>=0 && key<this.data[j] && this.status==false){
+        this.data[j+1]=this.data[j]
+        j--
+      }
+      while(j>=0 && key>this.data[j] && this.status==true){
+        this.data[j+1]=this.data[j]
+        j--
+      }
+      this.data[j+1]=key
+      this.chart.data.datasets[0].data=this.data
+      this.chart.data.labels=this.data
+      this.chart.update()
+      await this.sleep(50)
+      }
+}
+async oddevensort(){
+  var flag=0
+  while(flag==0){
+    flag=1
+    for (let i = 1; i < this.data.length-1; i=i+2) {
+      if(this.data[i]>this.data[i+1] && this.status==false){
+        var temp = this.data[i]
+        this.data[i]=this.data[i+1]
+        this.data[i+1]=temp
+        flag=0
+      }
+      if(this.data[i]<this.data[i+1] && this.status==true){
+        var temp = this.data[i]
+        this.data[i]=this.data[i+1]
+        this.data[i+1]=temp
+        flag=0
+      }
+      this.chart.data.datasets[0].data=this.data
+      this.chart.data.labels=this.data
+      this.chart.update()
+      await this.sleep(25)
+    }
+    for (let i = 0; i < this.data.length-1; i=i+2) {
+      if(this.data[i]>this.data[i+1] && this.status==false){
+        var temp = this.data[i]
+        this.data[i]=this.data[i+1]
+        this.data[i+1]=temp
+        flag=0
+      }
+      if(this.data[i]<this.data[i+1] && this.status==true){
+        var temp = this.data[i]
+        this.data[i]=this.data[i+1]
+        this.data[i+1]=temp
+        flag=0
+     }
+      this.chart.data.datasets[0].data=this.data
+      this.chart.data.labels=this.data
+      this.chart.update()
+      await this.sleep(25)
+    }
+  }
 }
 }

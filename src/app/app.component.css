@@ -1,3 +1,136 @@
+@keyframes glowing {
+  0% {text-shadow:0 0 .1em, 0 0 .1em;}
+  25% {text-shadow:0 0 .1em, 0 0 .2em;}
+ 
+}
+@-webkit-keyframes glowing {
+  
+  0% {text-shadow:0 0 .1em, 0 0 .1em;}
+  25% {text-shadow:0 0 .1em, 0 0 .2em;}
+
+}
+h2{color:#1CBB22;animation: glowing 2s infinite;text-align: center;}
+
+
+a{
+	color: #03E9F4;
+	display: inline-block;
+	/* font-size: 24px; */
+	letter-spacing: 2px;
+	margin: 20px 40px;
+	padding: 24px 30px;
+	position: relative;
+	overflow: hidden;
+	text-decoration: none;
+	text-transform: uppercase;
+	transition: 0.5s;
+	-webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+}
+
+a:nth-child(1){
+  filter: hue-rotate(290deg);
+  margin-right: 35px;
+}
+
+a:nth-child(3){
+	filter: hue-rotate(110deg);
+}
+
+a:nth-child(6){
+	filter: hue-rotate(110deg);
+}
+
+a:nth-child(4){
+	filter: hue-rotate(290deg);
+}
+
+a:hover{
+  background: #03E9F4;
+  transform: translateY(-0.25em);
+	box-shadow: 0 0 5px #03E9F4, 0 0 25px #03E9F4, 0 0 50px #03E9F4, 0 0 200px #03E9F4;
+	color: #050801;
+}
+
+a span{
+	display: block;
+	position: absolute;
+}
+
+a span:nth-child(1){
+	animation: animate1 1s linear infinite;
+	background: linear-gradient(90deg, transparent, #03E9F4);
+	height: 2px;
+	left: -100%;
+	top: 0;
+	width: 100%;
+}
+
+@keyframes animate1{
+	0%{
+		left: -100%;
+	}
+	50%, 100%{
+		left: 100%;	
+	}
+}
+
+a span:nth-child(2){
+	animation: animate2 1s linear infinite;
+	animation-delay: 0.25s;
+	background: linear-gradient(180deg, transparent, #03E9F4);
+	height: 100%;
+	top: -100%;
+	right: 0;
+	width: 2px;
+}
+
+@keyframes animate2{
+	0%{
+		top: -100%;
+	}
+	50%, 100%{
+		top: 100%;	
+	}
+}
+
+a span:nth-child(3){
+	animation: animate3 1s linear infinite;
+	animation-delay: 0.5s;
+	background: linear-gradient(270deg, transparent, #03E9F4);
+	bottom: 0;
+	height: 2px;
+	right: -100%;
+	width: 100%;
+}
+
+@keyframes animate3{
+	0%{
+		right: -100%;
+	}
+	50%, 100%{
+		right: 100%;	
+	}
+}
+
+a span:nth-child(4){
+	animation: animate4 1s linear infinite;
+	animation-delay: 0.75s;
+	background: linear-gradient(360deg, transparent, #03E9F4);
+	bottom: -100%;
+	height: 100%;
+	left: 0;
+	width: 2px;
+}
+
+@keyframes animate4{
+	0%{
+		bottom: -100%;
+	}
+	50%, 100%{
+		bottom: 100%;	
+	}
+}
+
 .main{
     height:100%;
 
@@ -12,14 +145,14 @@ html,body{
     height: 100%;
 }
 
-.raise:hover,
+/* .raise:hover,
 .raise:focus {
   box-shadow: 0 0.5em 0.5em -0.4em  #19bc8b;
   transform: translateY(-0.25em);
   border-color:  #19bc8b;
-}
+} */
 
-button {
+/* button {
     background: none;
     color:  #19bc8b;
     transition: 0.25s;
@@ -28,4 +161,70 @@ button {
     line-height: 1;
     margin: 0.5em;
     padding: 1em 2em;
+  } */
+
+
+  .toggle-body {
+    width: 7rem;
+    height: 4rem;
+    position: relative;
+    top: calc(50% - 4rem / 2);
+    left: calc(50% - 7rem / 2);
+    background: gray;
+    border-radius: 2rem;
+    animation: angle-reverse 1.5s cubic-bezier(0.68, -0.15, 0.265, 1.35);;
+  }
+  .toggle-body--on {
+    animation: angle 1.5s cubic-bezier(0.68, -0.15, 0.265, 1.35);;
+    animation-direction: alternate;
+  }
+  .toggle-btn {
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: calc(50% - 2rem / 2);
+    left: calc(27% - 2rem / 2);
+    background: gray;
+    border-radius: 2rem;
+    background: #618BFF;
+    cursor: pointer;
+    transform:  translateX(0);
+    transition: 1.5s cubic-bezier(0.68, -0.15, 0.265, 1.35);;
+  }
+  .toggle-btn--on {
+    transition: 1.5s cubic-bezier(0.68, -0.15, 0.265, 1.35);;
+    transform:  translateX(150%);
+    background: #FF8FDE;
+  }
+  
+  @keyframes angle {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(45deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  @keyframes angle-reverse {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(-45deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  p{
+    text-align: center;
+    font-family:"Courier";
+    font-size: 32px;
+    font-weight: 200;
+    color: tomato;
+
   }
